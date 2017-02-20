@@ -11,8 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.jaimequeraltgarrigos.mymovies.R;
 import com.example.jaimequeraltgarrigos.mymovies.app.AppComponent;
 import com.example.jaimequeraltgarrigos.mymovies.app.MyApplication;
+import com.example.jaimequeraltgarrigos.mymovies.app.Utility;
+import com.example.jaimequeraltgarrigos.mymovies.app.ui.custom_ui.ItemOffsetDecoration;
 
 import butterknife.ButterKnife;
 
@@ -55,7 +58,9 @@ public abstract class BaseFragment extends Fragment {
     protected static void setupList(RecyclerView mRecyclerView, RecyclerView.Adapter adapter) {
         if (mRecyclerView != null && adapter != null) {
             mRecyclerView.setHasFixedSize(true);
-            mRecyclerView.setLayoutManager(new GridLayoutManager(CONTEXT, 2));
+            mRecyclerView.setLayoutManager(new GridLayoutManager(CONTEXT, Utility.calculateNoOfColumns(CONTEXT)));
+            ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(CONTEXT, R.dimen.item_offset);
+            mRecyclerView.addItemDecoration(itemDecoration);
             mRecyclerView.setAdapter(adapter);
         }
     }

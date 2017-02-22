@@ -23,9 +23,7 @@ public class MovieSearchInteractor implements MoviesSearch {
     public void fetchLatestMovies(MoviesSearchServerCallback callback) {
         service.getDiscoverMovies(MyConstant.API_KEY)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
-                    callback.onMoviesFound(response);
-                }
+                .subscribe(callback::onMoviesFound
                         , throwable -> {
                             callback.onFailedSearch();
                         });
@@ -33,6 +31,12 @@ public class MovieSearchInteractor implements MoviesSearch {
 
     @Override
     public void fetchRatestMovies(MoviesSearchServerCallback callback) {
+        service.getRatestMovies(MyConstant.API_KEY,MyConstant.MOST_POPULAR)
+               .observeOn(AndroidSchedulers.mainThread())
+               .subscribe(callback::onMoviesFound
+                       , throwable -> {
+                           callback.onFailedSearch();
+                       });
 
     }
 

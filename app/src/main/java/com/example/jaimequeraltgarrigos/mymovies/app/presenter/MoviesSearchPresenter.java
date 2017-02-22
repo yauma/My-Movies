@@ -24,7 +24,7 @@ public class MoviesSearchPresenter implements MoviesSearchServerCallback {
         if (query.equals(MyConstant.DISCOVER)) {
             searchInteractor.fetchLatestMovies(this);
         } else if (query.equals(MyConstant.LIVE)){
-            searchInteractor.fetchLatestMovies(this);
+            searchInteractor.fetchRatestMovies(this);
         }else {
             searchInteractor.fetchFavoritesMovies(this);
         }

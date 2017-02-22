@@ -38,13 +38,13 @@ public class MoviesViewerFragment extends BaseFragment implements MoviesSearchVi
     private String query;
 
     public static MoviesViewerFragment newInstance(String query) {
-        MoviesViewerFragment allMatchesFragment = new MoviesViewerFragment();
+        MoviesViewerFragment moviesViewerFragment = new MoviesViewerFragment();
 
         Bundle args = new Bundle();
         args.putString("query", query);
-        allMatchesFragment.setArguments(args);
+        moviesViewerFragment.setArguments(args);
 
-        return allMatchesFragment;
+        return moviesViewerFragment;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class MoviesViewerFragment extends BaseFragment implements MoviesSearchVi
     @Override
     protected void setupComponent(AppComponent component) {
         DaggerMovieSearchComponent.builder().appComponent(component)
-                                                      .movieSearchModule(new MovieSearchModule(this)).build().inject(this);
+                                  .movieSearchModule(new MovieSearchModule(this)).build().inject(this);
     }
 
     @Override

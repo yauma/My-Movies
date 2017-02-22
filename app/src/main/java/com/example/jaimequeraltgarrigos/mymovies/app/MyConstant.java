@@ -15,4 +15,5 @@ public class MyConstant {
     public static final String URL_DISCOVER_MOVIE = "3/discover/movie";
 
     public static final String API_KEY = "9bc3a7bc8d59c59f5ce6afa05f9a3d60";
+    public static final String MOST_POPULAR = "popularity.desc";
 }

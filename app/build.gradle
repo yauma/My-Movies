@@ -23,6 +23,14 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+    productFlavors {
+        prod {
+
+        }
+        mock {
+            applicationId "com.example.jaimequeraltgarrigos.mymovies.mock"
+        }
+    }
 }
 
 dependencies {

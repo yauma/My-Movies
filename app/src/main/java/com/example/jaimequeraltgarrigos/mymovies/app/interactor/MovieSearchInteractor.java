@@ -7,13 +7,18 @@ import com.example.jaimequeraltgarrigos.mymovies.app.presenter.MoviesSearchServe
 
 import java.util.ArrayList;
 
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by jaimequeraltgarrigos on 3/12/16.
  */
 public class MovieSearchInteractor implements MoviesSearch {
     private final MoviesServices service;
+    private Subscription subscriptionLatestMovies;
+    private Subscription subscriptionRatestMovies;
+
 
     public MovieSearchInteractor(MoviesServices service) {
         this.service = service;
@@ -21,22 +26,23 @@ public class MovieSearchInteractor implements MoviesSearch {
 
     @Override
     public void fetchLatestMovies(MoviesSearchServerCallback callback) {
-        service.getDiscoverMovies(MyConstant.API_KEY)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(callback::onMoviesFound
-                        , throwable -> {
-                            callback.onFailedSearch();
-                        });
+        subscriptionLatestMovies = service.getDiscoverMovies(MyConstant.API_KEY)
+                                          .observeOn(AndroidSchedulers.mainThread())
+                                          .subscribe(callback::onMoviesFound
+                                                  , throwable -> {
+                                                      callback.onFailedSearch();
+                                                  });
+
     }
 
     @Override
     public void fetchRatestMovies(MoviesSearchServerCallback callback) {
-        service.getRatestMovies(MyConstant.API_KEY,MyConstant.MOST_POPULAR)
-               .observeOn(AndroidSchedulers.mainThread())
-               .subscribe(callback::onMoviesFound
-                       , throwable -> {
-                           callback.onFailedSearch();
-                       });
+        subscriptionRatestMovies = service.getRatestMovies(MyConstant.API_KEY, MyConstant.MOST_POPULAR)
+                                          .observeOn(AndroidSchedulers.mainThread())
+                                          .subscribe(callback::onMoviesFound
+                                                  , throwable -> {
+                                                      callback.onFailedSearch();
+                                                  });
 
     }
 

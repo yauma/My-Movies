@@ -91,28 +91,47 @@ public class MovieSearchInteractorTest {
     }
 
     @Test
-    public void fetchLatestMovies_IOException_SearchTerminatedWithError() {
-
+    public void fetchRatestMovies_200OkResponse_InvokesCorrectApiCalls() {
         //Given
-        when(service.getDiscoverMovies(anyString())).thenReturn(getIOException());
+        when(service.getRatestMovies(anyString(),anyString())).thenReturn(Observable.just(mockMoviesList()));
 
         //When
         TestSubscriber<MoviesResponse> subscriber = new TestSubscriber<>();
-        moviesSearch.fetchLatestMovies(anyString()).subscribe(subscriber);
+        moviesSearch.fetchRatestMovies("").subscribe(subscriber);
 
         //Then
         subscriber.awaitTerminalEvent();
-        subscriber.assertError(IOException.class);
+        subscriber.assertNoErrors();
+
+        List<Throwable> throwables = subscriber.getOnErrorEvents();
+        Assert.assertEquals(throwables.size(),0);
+
+        List<MoviesResponse> onNextEvents = subscriber.getOnNextEvents();
+        MoviesResponse movieResponse = onNextEvents.get(0);
+        Assert.assertEquals("Movie 1", movieResponse.getMovies().get(0).getTitle());
+        Assert.assertEquals("Movie 2", movieResponse.getMovies().get(1).getTitle());
+    }
+
+    @Test
+    public void fetchRatestMovies_403Error_SearchTerminatedWithError() {
+
+        //Given
+        when(service.getRatestMovies(anyString(),anyString())).thenReturn(get403Error());
+
+        //When
+        TestSubscriber<MoviesResponse> subscriber = new TestSubscriber<>();
+        moviesSearch.fetchRatestMovies("").subscribe(subscriber);
+
+        //Then
+        subscriber.awaitTerminalEvent();
+        subscriber.assertError(Exception.class);
 
         List<Throwable> throwables = subscriber.getOnErrorEvents();
         Assert.assertEquals(throwables.size(),1);
 
-        verify(service, times(2)).getDiscoverMovies(anyString());
+        verify(service).getRatestMovies(anyString(),anyString());
     }
 
-    private Observable<MoviesResponse> getIOException() {
-        return Observable.error(new IOException());
-    }
 
     private Observable<MoviesResponse> get403Error() {
         retrofit.Response<Account> aResponse = retrofit.Response.error(

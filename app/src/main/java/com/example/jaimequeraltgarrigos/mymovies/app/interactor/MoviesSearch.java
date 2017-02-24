@@ -10,9 +10,6 @@ import rx.Observable;
  */
 public interface MoviesSearch {
 
-    void fetchLatestMovies(MoviesSearchServerCallback callback);
-    void fetchRatestMovies(MoviesSearchServerCallback callback);
-    void fetchFavoritesMovies(MoviesSearchServerCallback callback);
     Observable<MoviesResponse> fetchLatestMovies(final String searchTerm);
     Observable<MoviesResponse> fetchRatestMovies(final String searchTerm);
 

@@ -49,9 +49,10 @@ public class MoviesSearchPresenter implements MoviesSearchServerCallback {
             subscriptionMovies = searchInteractor.fetchLatestMovies(query).subscribeOn(Schedulers.io())
                                                  .observeOn(AndroidSchedulers.mainThread()).subscribe(subscriber);
         } else if (query.equals(MyConstant.LIVE)){
-            searchInteractor.fetchRatestMovies(this);
+            subscriptionMovies = searchInteractor.fetchRatestMovies(query).subscribeOn(Schedulers.io())
+                                                 .observeOn(AndroidSchedulers.mainThread()).subscribe(subscriber);
         }else {
-            searchInteractor.fetchFavoritesMovies(this);
+
         }
     }
 

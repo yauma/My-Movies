@@ -18,8 +18,6 @@ import rx.subscriptions.CompositeSubscription;
  */
 public class MovieSearchInteractor implements MoviesSearch {
     private final MoviesServices service;
-    private Subscription subscriptionLatestMovies;
-    private Subscription subscriptionRatestMovies;
 
 
     public MovieSearchInteractor(MoviesServices service) {
@@ -27,51 +25,12 @@ public class MovieSearchInteractor implements MoviesSearch {
     }
 
     @Override
-    public void fetchLatestMovies(MoviesSearchServerCallback callback) {
-        subscriptionLatestMovies = service.getDiscoverMovies(MyConstant.API_KEY)
-                                          .observeOn(AndroidSchedulers.mainThread())
-                                          .subscribe(callback::onMoviesFound
-                                                  , throwable -> {
-                                                      callback.onFailedSearch();
-                                                  });
-
-    }
-
-    @Override
-    public void fetchRatestMovies(MoviesSearchServerCallback callback) {
-        subscriptionRatestMovies = service.getRatestMovies(MyConstant.API_KEY, MyConstant.MOST_POPULAR)
-                                          .observeOn(AndroidSchedulers.mainThread())
-                                          .subscribe(callback::onMoviesFound
-                                                  , throwable -> {
-                                                      callback.onFailedSearch();
-                                                  });
-
-    }
-
-    @Override
-    public void fetchFavoritesMovies(MoviesSearchServerCallback callback) {
-
-    }
-
-    @Override
     public Observable<MoviesResponse> fetchLatestMovies(String searchTerm) {
-        return Observable.defer(() -> service.getDiscoverMovies(MyConstant.API_KEY))
-                .retryWhen(observable -> observable.concatMap(o -> {
-                    if (o instanceof IOException){
-                        return Observable.just(null);
-                    }
-                    return Observable.error(o);
-                }));
+        return Observable.defer(() -> service.getDiscoverMovies(MyConstant.API_KEY));
     }
 
     @Override
     public Observable<MoviesResponse> fetchRatestMovies(String searchTerm) {
-        return Observable.defer(() -> service.getRatestMovies(MyConstant.API_KEY, MyConstant.MOST_POPULAR))
-                         .retryWhen(observable -> observable.concatMap(o -> {
-                             if (o instanceof IOException){
-                                 return Observable.just(null);
-                             }
-                             return Observable.error(o);
-                         }));
+        return Observable.defer(() -> service.getRatestMovies(MyConstant.API_KEY, MyConstant.MOST_POPULAR));
     }
 }

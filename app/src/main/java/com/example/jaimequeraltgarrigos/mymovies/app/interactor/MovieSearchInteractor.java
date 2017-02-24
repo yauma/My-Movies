@@ -5,8 +5,10 @@ import com.example.jaimequeraltgarrigos.mymovies.app.domain.MoviesResponse;
 import com.example.jaimequeraltgarrigos.mymovies.app.io.api.MoviesServices;
 import com.example.jaimequeraltgarrigos.mymovies.app.presenter.MoviesSearchServerCallback;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -49,5 +51,16 @@ public class MovieSearchInteractor implements MoviesSearch {
     @Override
     public void fetchFavoritesMovies(MoviesSearchServerCallback callback) {
 
+    }
+
+    @Override
+    public Observable<MoviesResponse> fetchLatestMovies(String searchTerm) {
+        return Observable.defer(() -> service.getDiscoverMovies(MyConstant.API_KEY))
+                .retryWhen(observable -> observable.concatMap(o -> {
+                    if (o instanceof IOException){
+                        return Observable.just(null);
+                    }
+                    return Observable.error(o);
+                }));
     }
 }

@@ -14,6 +14,8 @@ public interface MoviesSearch {
     void fetchRatestMovies(MoviesSearchServerCallback callback);
     void fetchFavoritesMovies(MoviesSearchServerCallback callback);
     Observable<MoviesResponse> fetchLatestMovies(final String searchTerm);
+    Observable<MoviesResponse> fetchRatestMovies(final String searchTerm);
+
 
 
 }

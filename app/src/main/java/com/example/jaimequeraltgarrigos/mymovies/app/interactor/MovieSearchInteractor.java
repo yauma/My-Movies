@@ -63,4 +63,15 @@ public class MovieSearchInteractor implements MoviesSearch {
                     return Observable.error(o);
                 }));
     }
+
+    @Override
+    public Observable<MoviesResponse> fetchRatestMovies(String searchTerm) {
+        return Observable.defer(() -> service.getRatestMovies(MyConstant.API_KEY, MyConstant.MOST_POPULAR))
+                         .retryWhen(observable -> observable.concatMap(o -> {
+                             if (o instanceof IOException){
+                                 return Observable.just(null);
+                             }
+                             return Observable.error(o);
+                         }));
+    }
 }

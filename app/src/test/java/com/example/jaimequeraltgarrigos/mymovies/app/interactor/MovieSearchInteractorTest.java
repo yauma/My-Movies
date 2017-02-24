@@ -1,9 +1,13 @@
 package com.example.jaimequeraltgarrigos.mymovies.app.interactor;
 
+import android.accounts.Account;
+
 import com.example.jaimequeraltgarrigos.mymovies.app.domain.Movie;
 import com.example.jaimequeraltgarrigos.mymovies.app.domain.MoviesResponse;
 import com.example.jaimequeraltgarrigos.mymovies.app.io.api.MoviesServices;
 import com.example.jaimequeraltgarrigos.mymovies.app.presenter.MoviesSearchServerCallback;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.ResponseBody;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,6 +27,7 @@ import rx.observers.TestSubscriber;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -35,12 +40,12 @@ public class MovieSearchInteractorTest {
     @Mock
     MoviesSearchServerCallback callback;
 
-    private MovieSearchInteractor movieSearchInteractor;
+    private MoviesSearch moviesSearch;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        movieSearchInteractor = new MovieSearchInteractor(service);
+        moviesSearch = new MovieSearchInteractor(service);
     }
 
     @Test
@@ -50,7 +55,7 @@ public class MovieSearchInteractorTest {
 
         //When
         TestSubscriber<MoviesResponse> subscriber = new TestSubscriber<>();
-        service.getDiscoverMovies(anyString()).subscribe(subscriber);
+        moviesSearch.fetchLatestMovies(anyString()).subscribe(subscriber);
 
         //Then
         subscriber.awaitTerminalEvent();
@@ -66,14 +71,34 @@ public class MovieSearchInteractorTest {
     }
 
     @Test
-    public void fetchLatestMovies_Error_SearchTerminatedWithError() {
+    public void fetchLatestMovies_403Error_SearchTerminatedWithError() {
+
+        //Given
+        when(service.getDiscoverMovies(anyString())).thenReturn(get403Error());
+
+        //When
+        TestSubscriber<MoviesResponse> subscriber = new TestSubscriber<>();
+        moviesSearch.fetchLatestMovies(anyString()).subscribe(subscriber);
+
+        //Then
+        subscriber.awaitTerminalEvent();
+        subscriber.assertError(HttpException.class);
+
+        List<Throwable> throwables = subscriber.getOnErrorEvents();
+        Assert.assertEquals(throwables.size(),1);
+
+        verify(service).getDiscoverMovies(anyString());
+    }
+
+    @Test
+    public void fetchLatestMovies_IOException_SearchTerminatedWithError() {
 
         //Given
         when(service.getDiscoverMovies(anyString())).thenReturn(getIOException());
 
         //When
         TestSubscriber<MoviesResponse> subscriber = new TestSubscriber<>();
-        service.getDiscoverMovies(anyString()).subscribe(subscriber);
+        moviesSearch.fetchLatestMovies(anyString()).subscribe(subscriber);
 
         //Then
         subscriber.awaitTerminalEvent();
@@ -82,28 +107,22 @@ public class MovieSearchInteractorTest {
         List<Throwable> throwables = subscriber.getOnErrorEvents();
         Assert.assertEquals(throwables.size(),1);
 
-        verify(service).getDiscoverMovies(anyString());
-
-
-        /*//Given
-        when(githubUserRestService.searchGithubUsers(anyString())).thenReturn(get403ForbiddenError());
-
-        //When
-        TestSubscriber<List<User>> subscriber = new TestSubscriber<>();
-        userRepository.searchUsers(USER_LOGIN_RIGGAROO).subscribe(subscriber);
-
-        //Then
-        subscriber.awaitTerminalEvent();
-        subscriber.assertError(HttpException.class);
-
-        verify(githubUserRestService).searchGithubUsers(USER_LOGIN_RIGGAROO);
-
-        verify(githubUserRestService, never()).getUser(USER_LOGIN_RIGGAROO);
-        verify(githubUserRestService, never()).getUser(USER_LOGIN_2_REBECCA);*/
+        verify(service, times(2)).getDiscoverMovies(anyString());
     }
 
     private Observable<MoviesResponse> getIOException() {
         return Observable.error(new IOException());
+    }
+
+    private Observable<MoviesResponse> get403Error() {
+        retrofit.Response<Account> aResponse = retrofit.Response.error(
+                403,
+                ResponseBody.create(
+                        MediaType.parse("application/json"),
+                        "{\"key\":[\"somestuff\"]}"
+                )
+        );
+        return Observable.error(new HttpException(aResponse));
     }
 
     private MoviesResponse mockMoviesList() {

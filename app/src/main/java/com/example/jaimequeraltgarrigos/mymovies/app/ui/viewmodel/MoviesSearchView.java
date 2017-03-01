@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface MoviesSearchView {
 
+    void showProgressBar(boolean visibility);
+
     void displayFoundMovies(List<Movie> movies);
 
     void displayFailedSearch();

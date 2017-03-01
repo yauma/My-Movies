@@ -31,7 +31,7 @@ public class MoviesSearchPresenter implements MoviesSearchServerCallback {
         Subscriber subscriber = new Subscriber <MoviesResponse>() {
             @Override
             public void onCompleted() {
-
+                view.showProgressBar(false);
             }
 
             @Override
@@ -56,24 +56,10 @@ public class MoviesSearchPresenter implements MoviesSearchServerCallback {
         }
     }
 
-
     @Override
-    public void onMoviesFound(MoviesResponse movies) {
-        view.displayFoundMovies(movies.getMovies());
-    }
-
-    @Override
-    public void onFailedSearch() {
-
-    }
-
-    @Override
-    public void onNetworkError() {
-
-    }
-
-    @Override
-    public void onServerError() {
-
+    public void unsubscribe() {
+        if (subscriptionMovies != null){
+            subscriptionMovies.unsubscribe();
+        }
     }
 }

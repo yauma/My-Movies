@@ -2,11 +2,14 @@ package com.example.jaimequeraltgarrigos.mymovies.app.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.jaimequeraltgarrigos.mymovies.R;
 import com.example.jaimequeraltgarrigos.mymovies.app.AppComponent;
 import com.example.jaimequeraltgarrigos.mymovies.app.common.BaseFragment;
 import com.example.jaimequeraltgarrigos.mymovies.app.component.DaggerMovieSearchComponent;
+import com.example.jaimequeraltgarrigos.mymovies.app.component.MovieSearchComponent;
 import com.example.jaimequeraltgarrigos.mymovies.app.domain.Movie;
 import com.example.jaimequeraltgarrigos.mymovies.app.module.MovieSearchModule;
 import com.example.jaimequeraltgarrigos.mymovies.app.presenter.MoviesSearchPresenter;
@@ -29,6 +32,8 @@ public class MoviesViewerFragment extends BaseFragment implements MoviesSearchVi
         TextView textView;*/
     @BindView(R.id.recyclerview_grid)
     RecyclerView mRecyclerView;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     @Inject
     MoviesSearchPresenter presenter;
@@ -61,6 +66,10 @@ public class MoviesViewerFragment extends BaseFragment implements MoviesSearchVi
 
     @Override
     protected void setupComponent(AppComponent component) {
+/*        MovieSearchComponent movieSearchComponent = DaggerMovieSearchComponent.builder().appComponent(component).movieSearchModule(new
+                MovieSearchModule(this)).build();
+        presenter = movieSearchComponent.getPresenter();
+        adapter = movieSearchComponent.getAdapter();*/
         DaggerMovieSearchComponent.builder().appComponent(component)
                                   .movieSearchModule(new MovieSearchModule(this)).build().inject(this);
     }
@@ -68,6 +77,15 @@ public class MoviesViewerFragment extends BaseFragment implements MoviesSearchVi
     @Override
     protected int getFragmentLayout() {
         return R.layout.fragment_movies_viewer;
+    }
+
+    @Override
+    public void showProgressBar(boolean visibility) {
+        if (visibility){
+            progressBar.setVisibility(View.VISIBLE);
+        }else{
+            progressBar.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

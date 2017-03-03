@@ -5,9 +5,13 @@ import com.example.jaimequeraltgarrigos.mymovies.app.domain.MoviesResponse;
 import com.example.jaimequeraltgarrigos.mymovies.app.io.api.MoviesServices;
 import com.example.jaimequeraltgarrigos.mymovies.app.presenter.MoviesSearchServerCallback;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import rx.Observable;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by jaimequeraltgarrigos on 3/12/16.
@@ -15,33 +19,18 @@ import rx.android.schedulers.AndroidSchedulers;
 public class MovieSearchInteractor implements MoviesSearch {
     private final MoviesServices service;
 
+
     public MovieSearchInteractor(MoviesServices service) {
         this.service = service;
     }
 
     @Override
-    public void fetchLatestMovies(MoviesSearchServerCallback callback) {
-        service.getDiscoverMovies(MyConstant.API_KEY)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(callback::onMoviesFound
-                        , throwable -> {
-                            callback.onFailedSearch();
-                        });
+    public Observable<MoviesResponse> fetchLatestMovies(String searchTerm) {
+        return Observable.defer(() -> service.getDiscoverMovies(MyConstant.API_KEY));
     }
 
     @Override
-    public void fetchRatestMovies(MoviesSearchServerCallback callback) {
-        service.getRatestMovies(MyConstant.API_KEY,MyConstant.MOST_POPULAR)
-               .observeOn(AndroidSchedulers.mainThread())
-               .subscribe(callback::onMoviesFound
-                       , throwable -> {
-                           callback.onFailedSearch();
-                       });
-
-    }
-
-    @Override
-    public void fetchFavoritesMovies(MoviesSearchServerCallback callback) {
-
+    public Observable<MoviesResponse> fetchRatestMovies(String searchTerm) {
+        return Observable.defer(() -> service.getRatestMovies(MyConstant.API_KEY, MyConstant.MOST_POPULAR));
     }
 }

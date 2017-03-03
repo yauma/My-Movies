@@ -10,11 +10,5 @@ import java.util.List;
  */
 public interface MoviesSearchServerCallback {
 
-    void onMoviesFound(MoviesResponse movies);
-
-    void onFailedSearch();
-
-    void onNetworkError();
-
-    void onServerError();
+    void unsubscribe();
 }

@@ -6,6 +6,7 @@ import com.example.jaimequeraltgarrigos.mymovies.app.domain.MoviesResponse;
 import com.example.jaimequeraltgarrigos.mymovies.app.interactor.MoviesSearch;
 import com.example.jaimequeraltgarrigos.mymovies.app.ui.viewmodel.MoviesSearchView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import rx.Subscriber;
@@ -37,15 +38,19 @@ public class MoviesSearchPresenter implements PresenterMovies {
         if (query.equals(MyConstant.DISCOVER)) {
 
             searchInteractor.fetchLatestMovies(query).subscribeOn(schedulerProvider.io())
-                                                 .observeOn(schedulerProvider.ui()).subscribe(new Subscriber<MoviesResponse>() {
+                            .observeOn(schedulerProvider.ui()).subscribe(new Subscriber<MoviesResponse>() {
                 @Override
                 public void onCompleted() {
-
+                    view.showProgressBar(false);
                 }
 
                 @Override
                 public void onError(Throwable e) {
-
+                    if (e instanceof IOException) {
+                        view.displayNetworkError();
+                    } else {
+                        view.displayServerError();
+                    }
                 }
 
                 @Override
@@ -57,7 +62,7 @@ public class MoviesSearchPresenter implements PresenterMovies {
 /*            subscriptionMovies = searchInteractor.fetchRatestMovies(query).subscribeOn(Schedulers.io())
                                                  .observeOn(AndroidSchedulers.mainThread()).subscribe(subscriber);*/
         } else {
-
+            view.displayFailedSearch();
         }
     }
 

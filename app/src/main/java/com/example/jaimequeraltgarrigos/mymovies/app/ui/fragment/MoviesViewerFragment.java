@@ -9,7 +9,6 @@ import com.example.jaimequeraltgarrigos.mymovies.R;
 import com.example.jaimequeraltgarrigos.mymovies.app.AppComponent;
 import com.example.jaimequeraltgarrigos.mymovies.app.common.BaseFragment;
 import com.example.jaimequeraltgarrigos.mymovies.app.component.DaggerMovieSearchComponent;
-import com.example.jaimequeraltgarrigos.mymovies.app.component.MovieSearchComponent;
 import com.example.jaimequeraltgarrigos.mymovies.app.domain.Movie;
 import com.example.jaimequeraltgarrigos.mymovies.app.module.MovieSearchModule;
 import com.example.jaimequeraltgarrigos.mymovies.app.presenter.MoviesSearchPresenter;

@@ -8,7 +8,9 @@ import java.util.List;
 /**
  * Created by jaimequeraltgarrigos on 3/12/16.
  */
-public interface MoviesSearchServerCallback {
+public interface PresenterMovies {
+
+    void searchMovies(String query);
 
     void unsubscribe();
 }

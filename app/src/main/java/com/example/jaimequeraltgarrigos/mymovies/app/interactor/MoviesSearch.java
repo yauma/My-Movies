@@ -1,7 +1,6 @@
 package com.example.jaimequeraltgarrigos.mymovies.app.interactor;
 
 import com.example.jaimequeraltgarrigos.mymovies.app.domain.MoviesResponse;
-import com.example.jaimequeraltgarrigos.mymovies.app.presenter.MoviesSearchServerCallback;
 
 import rx.Observable;
 

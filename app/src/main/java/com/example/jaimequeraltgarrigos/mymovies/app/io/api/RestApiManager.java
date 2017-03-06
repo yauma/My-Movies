@@ -1,7 +1,7 @@
 package com.example.jaimequeraltgarrigos.mymovies.app.io.api;
 
 
-import com.example.jaimequeraltgarrigos.mymovies.app.MyConstant;
+import com.example.jaimequeraltgarrigos.mymovies.app.utils.MyConstant;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 

@@ -5,7 +5,7 @@ import android.accounts.Account;
 import com.example.jaimequeraltgarrigos.mymovies.app.domain.Movie;
 import com.example.jaimequeraltgarrigos.mymovies.app.domain.MoviesResponse;
 import com.example.jaimequeraltgarrigos.mymovies.app.io.api.MoviesServices;
-import com.example.jaimequeraltgarrigos.mymovies.app.presenter.MoviesSearchServerCallback;
+import com.example.jaimequeraltgarrigos.mymovies.app.presenter.PresenterMovies;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.ResponseBody;
 
@@ -15,19 +15,14 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.HttpException;
-import retrofit2.Response;
 import rx.Observable;
 import rx.observers.TestSubscriber;
 
-import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -38,7 +33,7 @@ public class MovieSearchInteractorTest {
     @Mock
     MoviesServices service;
     @Mock
-    MoviesSearchServerCallback callback;
+    PresenterMovies callback;
 
     private MoviesSearch moviesSearch;
 

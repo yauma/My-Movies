@@ -9,14 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.jaimequeraltgarrigos.mymovies.R;
-import com.example.jaimequeraltgarrigos.mymovies.app.MyConstant;
+import com.example.jaimequeraltgarrigos.mymovies.app.utils.MyConstant;
 import com.example.jaimequeraltgarrigos.mymovies.app.domain.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.jaimequeraltgarrigos.mymovies.R.id.imageView;
 
 /**
  * Created by jaimequeraltgarrigos on 6/11/16.

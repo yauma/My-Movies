@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import com.example.jaimequeraltgarrigos.mymovies.R;
 import com.example.jaimequeraltgarrigos.mymovies.app.AppComponent;
 import com.example.jaimequeraltgarrigos.mymovies.app.MyApplication;
-import com.example.jaimequeraltgarrigos.mymovies.app.Utility;
 import com.example.jaimequeraltgarrigos.mymovies.app.ui.custom_ui.ItemOffsetDecoration;
 
 import butterknife.ButterKnife;

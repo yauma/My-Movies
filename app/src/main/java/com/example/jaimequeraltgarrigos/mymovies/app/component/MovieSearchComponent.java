@@ -8,6 +8,7 @@ import com.example.jaimequeraltgarrigos.mymovies.app.ui.adapter.MoviesAdapter;
 import com.example.jaimequeraltgarrigos.mymovies.app.ui.fragment.MoviesViewerFragment;
 
 import dagger.Component;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by jaimequeraltgarrigos on 3/12/16.
@@ -23,5 +24,4 @@ public interface MovieSearchComponent {
     MoviesSearchPresenter getPresenter();
 
     MoviesAdapter getAdapter();
-
 }

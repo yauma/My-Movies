@@ -2,7 +2,7 @@ package com.example.jaimequeraltgarrigos.mymovies.app.module;
 
 import android.content.Context;
 
-import com.example.jaimequeraltgarrigos.mymovies.app.interactor.MovieSearchInteractor;
+import com.example.jaimequeraltgarrigos.mymovies.app.utils.Schedulers.BaseSchedulerProvider;
 import com.example.jaimequeraltgarrigos.mymovies.app.interactor.MoviesSearch;
 import com.example.jaimequeraltgarrigos.mymovies.app.presenter.MoviesSearchPresenter;
 import com.example.jaimequeraltgarrigos.mymovies.app.ui.adapter.MoviesAdapter;
@@ -29,8 +29,8 @@ public class MovieSearchModule {
     }
 
     @Provides
-    public MoviesSearchPresenter providePresenter(MoviesSearchView view, MoviesSearch interactor) {
-        return new MoviesSearchPresenter(view, interactor);
+    public MoviesSearchPresenter providePresenter(MoviesSearchView view, MoviesSearch interactor, BaseSchedulerProvider schedulerProvider) {
+        return new MoviesSearchPresenter(view, interactor,schedulerProvider);
     }
 
     @Provides

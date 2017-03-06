@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.example.jaimequeraltgarrigos.mymovies.app.io.api.MoviesServices;
 import com.example.jaimequeraltgarrigos.mymovies.app.io.api.RestApiManager;
+import com.example.jaimequeraltgarrigos.mymovies.app.utils.Schedulers.BaseSchedulerProvider;
+import com.example.jaimequeraltgarrigos.mymovies.app.utils.Schedulers.SchedulerProvider;
 
 import javax.inject.Singleton;
 
@@ -44,7 +46,14 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public MoviesServices provideSpotifyApiService(Retrofit retrofit) {
+    public MoviesServices provideApiService(Retrofit retrofit) {
         return retrofit.create(MoviesServices.class);
     }
+
+    @Provides
+    public BaseSchedulerProvider provideIoSchedulers() {
+        return new SchedulerProvider();
+    }
+
+
 }

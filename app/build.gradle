@@ -31,6 +31,9 @@ android {
             applicationId "com.example.jaimequeraltgarrigos.mymovies.mock"
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {

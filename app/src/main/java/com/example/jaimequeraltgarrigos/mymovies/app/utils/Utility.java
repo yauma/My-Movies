@@ -1,4 +1,4 @@
-package com.example.jaimequeraltgarrigos.mymovies.app;
+package com.example.jaimequeraltgarrigos.mymovies.app.utils;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

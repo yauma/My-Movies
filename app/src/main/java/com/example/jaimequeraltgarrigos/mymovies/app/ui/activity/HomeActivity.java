@@ -16,9 +16,8 @@ import android.view.MenuItem;
 import com.example.jaimequeraltgarrigos.mymovies.R;
 import com.example.jaimequeraltgarrigos.mymovies.app.AppComponent;
 import com.example.jaimequeraltgarrigos.mymovies.app.common.BaseActivity;
-import com.example.jaimequeraltgarrigos.mymovies.app.MyConstant;
+import com.example.jaimequeraltgarrigos.mymovies.app.utils.MyConstant;
 import com.example.jaimequeraltgarrigos.mymovies.app.ui.fragment.MoviesViewerFragment;
-import com.example.jaimequeraltgarrigos.mymovies.app.ui.viewmodel.MoviesSearchView;
 
 import java.util.ArrayList;
 import java.util.List;

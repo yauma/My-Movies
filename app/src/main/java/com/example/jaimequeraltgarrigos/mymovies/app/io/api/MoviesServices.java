@@ -1,9 +1,7 @@
 package com.example.jaimequeraltgarrigos.mymovies.app.io.api;
 
-import com.example.jaimequeraltgarrigos.mymovies.app.MyConstant;
+import com.example.jaimequeraltgarrigos.mymovies.app.utils.MyConstant;
 import com.example.jaimequeraltgarrigos.mymovies.app.domain.MoviesResponse;
-
-import java.util.List;
 
 import retrofit.http.GET;
 import retrofit.http.Query;

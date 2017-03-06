@@ -1,4 +1,4 @@
-package com.example.jaimequeraltgarrigos.mymovies.app;
+package com.example.jaimequeraltgarrigos.mymovies.app.utils;
 
 import com.squareup.okhttp.HttpUrl;
 

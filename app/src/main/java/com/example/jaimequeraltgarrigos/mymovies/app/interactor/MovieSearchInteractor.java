@@ -1,17 +1,10 @@
 package com.example.jaimequeraltgarrigos.mymovies.app.interactor;
 
-import com.example.jaimequeraltgarrigos.mymovies.app.MyConstant;
+import com.example.jaimequeraltgarrigos.mymovies.app.utils.MyConstant;
 import com.example.jaimequeraltgarrigos.mymovies.app.domain.MoviesResponse;
 import com.example.jaimequeraltgarrigos.mymovies.app.io.api.MoviesServices;
-import com.example.jaimequeraltgarrigos.mymovies.app.presenter.MoviesSearchServerCallback;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by jaimequeraltgarrigos on 3/12/16.

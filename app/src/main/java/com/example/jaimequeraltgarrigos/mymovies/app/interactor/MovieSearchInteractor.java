@@ -18,12 +18,12 @@ public class MovieSearchInteractor implements MoviesSearch {
     }
 
     @Override
-    public Observable<MoviesResponse> fetchLatestMovies(String searchTerm) {
-        return Observable.defer(() -> service.getDiscoverMovies(MyConstant.API_KEY));
+    public Observable<MoviesResponse> fetchLatestMovies(String searchTerm, int page) {
+        return Observable.defer(() -> service.getDiscoverMovies(MyConstant.API_KEY, page));
     }
 
     @Override
-    public Observable<MoviesResponse> fetchRatestMovies(String searchTerm) {
-        return Observable.defer(() -> service.getRatestMovies(MyConstant.API_KEY, MyConstant.MOST_POPULAR));
+    public Observable<MoviesResponse> fetchRatestMovies(String searchTerm, int page) {
+        return Observable.defer(() -> service.getRatestMovies(MyConstant.API_KEY, page, MyConstant.MOST_POPULAR));
     }
 }

@@ -56,7 +56,7 @@ public abstract class BaseFragment extends Fragment {
     protected static void setupList(RecyclerView mRecyclerView, RecyclerView.Adapter adapter) {
         if (mRecyclerView != null && adapter != null) {
             mRecyclerView.setHasFixedSize(true);
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(CONTEXT, 3);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(CONTEXT, 2);
             mRecyclerView.setLayoutManager(gridLayoutManager);
             ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(CONTEXT, R.dimen.item_offset);
             mRecyclerView.addItemDecoration(itemDecoration);
@@ -64,8 +64,8 @@ public abstract class BaseFragment extends Fragment {
             gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    if (position == 0 || position % 4 == 0) {
-                        return 3; // ITEMS AT POSITION 1 AND 6 OCCUPY 2 SPACES
+                    if (position == 0 || position % 3 == 0) {
+                        return 2; // ITEMS AT POSITION 1 AND 6 OCCUPY 2 SPACES
                     } else {
                         return 1; // OTHER ITEMS OCCUPY ONLY A SINGLE SPACE
                     }

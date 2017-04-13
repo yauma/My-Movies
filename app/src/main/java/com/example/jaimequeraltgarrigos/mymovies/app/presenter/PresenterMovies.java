@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface PresenterMovies {
 
-    void searchMovies(String query);
+    void searchMovies(String query, int page);
 
     void unsubscribe();
 }

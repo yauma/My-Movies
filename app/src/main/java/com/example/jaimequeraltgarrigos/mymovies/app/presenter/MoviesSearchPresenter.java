@@ -33,11 +33,11 @@ public class MoviesSearchPresenter implements PresenterMovies {
     }
 
     @Override
-    public void searchMovies(String query) {
+    public void searchMovies(String query, int page) {
 
         if (query.equals(MyConstant.DISCOVER)) {
 
-            searchInteractor.fetchLatestMovies(query).subscribeOn(schedulerProvider.io())
+            searchInteractor.fetchLatestMovies(query, page).subscribeOn(schedulerProvider.io())
                             .observeOn(schedulerProvider.ui()).subscribe(new Subscriber<MoviesResponse>() {
                 @Override
                 public void onCompleted() {

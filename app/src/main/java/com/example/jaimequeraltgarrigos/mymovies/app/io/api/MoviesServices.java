@@ -12,7 +12,8 @@ import rx.Observable;
  */
 public interface MoviesServices {
     @GET(MyConstant.URL_DISCOVER_MOVIE)
-    Observable<MoviesResponse> getDiscoverMovies(@Query("api_key") String apiKey);
+    Observable<MoviesResponse> getDiscoverMovies(@Query("api_key") String apiKey,@Query("page") int page);
     @GET(MyConstant.URL_DISCOVER_MOVIE)
-    Observable<MoviesResponse> getRatestMovies (@Query("api_key") String apiKey, @Query("sort_by") String sortBy);
+    Observable<MoviesResponse> getRatestMovies (@Query("api_key") String apiKey,@Query("page") int page, @Query("sort_by") String sortBy);
+
 }

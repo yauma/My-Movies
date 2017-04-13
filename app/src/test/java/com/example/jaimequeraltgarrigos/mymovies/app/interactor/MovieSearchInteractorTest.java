@@ -22,6 +22,7 @@ import retrofit.HttpException;
 import rx.Observable;
 import rx.observers.TestSubscriber;
 
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -46,7 +47,7 @@ public class MovieSearchInteractorTest {
     @Test
     public void fetchLatestMovies_200OkResponse_InvokesCorrectApiCalls() {
         //Given
-        when(service.getDiscoverMovies(anyString())).thenReturn(Observable.just(mockMoviesList()));
+        when(service.getDiscoverMovies(anyString(),anyInt())).thenReturn(Observable.just(mockMoviesList()));
 
         //When
         TestSubscriber<MoviesResponse> subscriber = new TestSubscriber<>();
@@ -69,7 +70,7 @@ public class MovieSearchInteractorTest {
     public void fetchLatestMovies_403Error_SearchTerminatedWithError() {
 
         //Given
-        when(service.getDiscoverMovies(anyString())).thenReturn(get403Error());
+        when(service.getDiscoverMovies(anyString(),anyInt())).thenReturn(get403Error());
 
         //When
         TestSubscriber<MoviesResponse> subscriber = new TestSubscriber<>();
@@ -82,7 +83,7 @@ public class MovieSearchInteractorTest {
         List<Throwable> throwables = subscriber.getOnErrorEvents();
         Assert.assertEquals(throwables.size(),1);
 
-        verify(service).getDiscoverMovies(anyString());
+        verify(service).getDiscoverMovies(anyString(),anyInt());
     }
 
     @Test

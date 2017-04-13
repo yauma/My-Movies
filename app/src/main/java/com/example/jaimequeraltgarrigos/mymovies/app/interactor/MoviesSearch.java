@@ -9,8 +9,8 @@ import rx.Observable;
  */
 public interface MoviesSearch {
 
-    Observable<MoviesResponse> fetchLatestMovies(final String searchTerm);
-    Observable<MoviesResponse> fetchRatestMovies(final String searchTerm);
+    Observable<MoviesResponse> fetchLatestMovies(final String searchTerm, int page);
+    Observable<MoviesResponse> fetchRatestMovies(final String searchTerm, int page);
 
 
 

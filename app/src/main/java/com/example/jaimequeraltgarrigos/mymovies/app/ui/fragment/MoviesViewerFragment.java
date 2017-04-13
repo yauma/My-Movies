@@ -15,6 +15,7 @@ import com.example.jaimequeraltgarrigos.mymovies.app.presenter.MoviesSearchPrese
 import com.example.jaimequeraltgarrigos.mymovies.app.ui.adapter.MoviesAdapter;
 import com.example.jaimequeraltgarrigos.mymovies.app.ui.viewmodel.MoviesSearchView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -40,6 +41,7 @@ public class MoviesViewerFragment extends BaseFragment implements MoviesSearchVi
     MoviesAdapter adapter;
 
     private String query;
+    private int page = 1;
 
     public static MoviesViewerFragment newInstance(String query) {
         MoviesViewerFragment moviesViewerFragment = new MoviesViewerFragment();
@@ -60,7 +62,7 @@ public class MoviesViewerFragment extends BaseFragment implements MoviesSearchVi
     @Override
     public void onResume() {
         super.onResume();
-        presenter.searchMovies(query);
+        presenter.searchMovies(query,page);
     }
 
     @Override
@@ -80,9 +82,9 @@ public class MoviesViewerFragment extends BaseFragment implements MoviesSearchVi
 
     @Override
     public void showProgressBar(boolean visibility) {
-        if (visibility){
+        if (visibility) {
             progressBar.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             progressBar.setVisibility(View.INVISIBLE);
         }
     }

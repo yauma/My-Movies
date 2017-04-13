@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.jaimequeraltgarrigos.mymovies.R;
 import com.example.jaimequeraltgarrigos.mymovies.app.utils.MyConstant;
@@ -41,7 +42,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         MovieViewHolder movieViewHolder = (MovieViewHolder) holder;
         Movie movie = movies.get(position);
-        Picasso.with(context).load(MyConstant.IMAGE_BASE_URL + movie.getPosterPath()).into(movieViewHolder.imageViewMovie);
+        Picasso.with(context).load(MyConstant.IMAGE_BASE_URL + movie.getBackdropPath()).into(movieViewHolder.imageViewMovie);
+        movieViewHolder.textViewTitle.setText(movie.getOriginalTitle());
     }
 
     @Override
@@ -63,11 +65,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     public static class MovieViewHolder extends ViewHolder {
         CardView cv;
         ImageView imageViewMovie;
+        TextView textViewTitle;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.card_view_movie);
             imageViewMovie = (ImageView) itemView.findViewById(R.id.imageViewMovie);
+            textViewTitle = (TextView) itemView.findViewById(R.id.textViewTitle);
         }
 
     }

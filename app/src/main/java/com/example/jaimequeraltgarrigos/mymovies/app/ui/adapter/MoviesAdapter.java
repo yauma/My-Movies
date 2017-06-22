@@ -23,8 +23,10 @@ import java.util.List;
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
 
 
-    private List<Movie> movies;
+    private static List<Movie> movies;
     private final Context context;
+    private static MyClickListener myClickListener;
+
 
     public MoviesAdapter(Context context) {
         this.context = context;
@@ -62,7 +64,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         }
     }
 
-    public static class MovieViewHolder extends ViewHolder {
+    public static class MovieViewHolder extends ViewHolder implements View.OnClickListener {
         CardView cv;
         ImageView imageViewMovie;
         TextView textViewTitle;
@@ -70,14 +72,25 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         public MovieViewHolder(View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.card_view_movie);
+            cv.setOnClickListener(this);
             imageViewMovie = (ImageView) itemView.findViewById(R.id.imageViewMovie);
             textViewTitle = (TextView) itemView.findViewById(R.id.textViewTitle);
         }
 
+        @Override
+        public void onClick(View v) {
+            if (myClickListener != null){
+                myClickListener.onItemClick(movies.get(getAdapterPosition()),v);
+            }
+        }
     }
 
     public interface MyClickListener {
-        public void onItemClick(int position, View v);
+        public void onItemClick(Movie position, View v);
+    }
+
+    public void setMyClickListener(MyClickListener myClickListener) {
+        MoviesAdapter.myClickListener = myClickListener;
     }
 }
 

@@ -14,6 +14,7 @@ import com.example.jaimequeraltgarrigos.mymovies.app.module.MovieSearchModule;
 import com.example.jaimequeraltgarrigos.mymovies.app.presenter.MoviesSearchPresenter;
 import com.example.jaimequeraltgarrigos.mymovies.app.ui.adapter.MoviesAdapter;
 import com.example.jaimequeraltgarrigos.mymovies.app.ui.viewmodel.MoviesSearchView;
+import com.example.jaimequeraltgarrigos.mymovies.app.utils.NavigationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class MoviesViewerFragment extends BaseFragment implements MoviesSearchVi
 
     private String query;
     private int page = 1;
+    private ArrayList<Movie> movies;
 
     public static MoviesViewerFragment newInstance(String query) {
         MoviesViewerFragment moviesViewerFragment = new MoviesViewerFragment();
@@ -62,7 +64,10 @@ public class MoviesViewerFragment extends BaseFragment implements MoviesSearchVi
     @Override
     public void onResume() {
         super.onResume();
-        presenter.searchMovies(query,page);
+        presenter.searchMovies(query, page);
+        adapter.setMyClickListener((movie, v) -> {
+            NavigationUtils.navigateToDetails(CONTEXT, movie);
+        });
     }
 
     @Override
@@ -91,6 +96,7 @@ public class MoviesViewerFragment extends BaseFragment implements MoviesSearchVi
 
     @Override
     public void displayFoundMovies(List<Movie> movies) {
+        this.movies = (ArrayList<Movie>) movies;
         adapter.addMovies(movies);
     }
 
